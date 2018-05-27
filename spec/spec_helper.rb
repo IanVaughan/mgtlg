@@ -1,6 +1,7 @@
 require "pry"
 require "./load_app"
 require 'currency'
+require 'conversion'
 
 RSpec.configure do |config|
   config.before(:each) do

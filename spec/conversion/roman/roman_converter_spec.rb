@@ -1,4 +1,4 @@
-RSpec.describe Conversion::RomanConverter do
+RSpec.describe Conversion::Roman::Converter do
   describe "#convert" do
     let(:m) { double("M", symbol: "M") }
     let(:v) { double("V", symbol: "V") }
