@@ -10,6 +10,10 @@ module Conversion
         @number_types = number_types
       end
 
+      def self.can_convert?(input)
+        true
+      end
+
       def convert
         string.chars.map { |char| find(char) }
       end
@@ -22,5 +26,7 @@ module Conversion
         number_types.select { |number| number.symbol == char }.first
       end
     end
+
+    Parse.register(Converter)
   end
 end
