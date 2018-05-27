@@ -4,7 +4,7 @@ RSpec.describe Currency::Money do
     let(:amount) { 2 }
     let(:name) { :gold }
 
-    it "creates a valid Exchange instance" do
+    it "creates a valid instance" do
       expect(input).to be_an_instance_of(described_class)
     end
 

@@ -10,7 +10,7 @@ RSpec.describe Conversion::Parse do
   describe "#parse" do
     let(:mock_converter) do
       Class.new do
-        def self.can_convert?(_x)
+        def can_convert?
           true
         end
 

@@ -10,6 +10,10 @@ module Conversion
         self.numbers ||= []
         self.numbers << type
       end
+
+      def all
+        self.numbers
+      end
     end
   end
 end

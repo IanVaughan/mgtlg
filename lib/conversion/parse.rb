@@ -17,14 +17,19 @@ module Conversion
         converter = match(input)
         raise NoMatchingConverterError if converter.nil?
 
-        number_set = converter.new(input, numbers).convert
+        number_set = converter.convert
         calculator.new(number_set).result
       end
 
       private
 
+      def init_all_converters(input)
+        self.converters.map { |converter| converter.new(input, numbers) }
+      end
+
       def match(input)
-        self.converters.find { |converter| converter.can_convert?(input) }
+        converters = init_all_converters(input)
+        converters.find { |converter| converter.can_convert? }
       end
 
       def numbers

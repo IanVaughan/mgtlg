@@ -5,7 +5,7 @@ RSpec.describe Currency::ExchangeRate do
   context "with a valid currency name" do
     let(:name) { :silver }
 
-    it "creates a valid ExchangeRate instance" do
+    it "creates a valid instance" do
       expect(input).to be_an_instance_of(described_class)
     end
 

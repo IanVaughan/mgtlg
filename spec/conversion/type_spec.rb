@@ -9,7 +9,7 @@ RSpec.describe Conversion::Type do
     described_class.new(symbol: symbol, value: value, name: name, repeatable: repeatable, subtractable_by: subtractable_by)
   end
 
-  it "creates a valid ExchangeRate instance" do
+  it "creates a valid instance" do
     expect(input).to be_an_instance_of(described_class)
   end
 

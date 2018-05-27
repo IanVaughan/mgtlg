@@ -5,7 +5,7 @@ RSpec.describe Currency::Exchange do
     let!(:input) { described_class.new(exchange_rate) }
     let(:name) { :doesnt_matter }
 
-    it "creates a valid Exchange instance" do
+    it "creates a valid instance" do
       expect(input).to be_an_instance_of(described_class)
     end
 
