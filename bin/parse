@@ -1,0 +1,10 @@
+#!/usr/local/bin/ruby -w
+
+require "./init"
+
+input = ARGV
+begin
+  puts TextInput.answer(input.join(" "))
+rescue RuntimeError => e
+  puts "Error processing : #{e}"
+end

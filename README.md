@@ -18,6 +18,7 @@ Roman numerals are based on seven symbols:
 | D | 500 || false | false |
 | M | 1,000 || true | n/a |
 
+Table extended with logic extracted from rules within this readme.
 
 Numbers are formed by combining symbols together and adding the values. For example, MMVI is `1000 + 1000 + 5 + 1 = 2006`. Generally, symbols are placed in order of value, starting with the largest values. When smaller values precede larger values, the smaller values are subtracted from the larger values, and the result is added to the total. For example `MCMXLIV = 1000 + (1000 - 100) + (50 - 10) + (5 - 1) = 1944`.
 
@@ -43,6 +44,8 @@ You are expected to handle invalid queries appropriately.
 
 ## Tests
 
+Table extended with own calculations
+
 | Input        | Result         | Calcs |
 | ------------- |:-------------:|-|
 | glob glob Silver    | 34 Credits    | 1+1 = 2 Silver, 1 Sliver=17 Credits  |
@@ -52,3 +55,91 @@ You are expected to handle invalid queries appropriately.
 | glob prok Iron      | 782 Credits   | (1-5) = 4 Iron, 782/4=195.5, 1 Iron = 195.5 Credits  |
 | pish tegj glob glob | 42            | (10-50)+1+1 = 42 |
 | how much wood could a <br>woodchuck chuck if a <br>woodchuck could chuck wood | I have no idea what you <br>are talking about |
+
+
+## Design
+
+The code is split into modules that deal with a specific area of the problem domain.
+
+* Conversion - deals with converting between types created in the system, and based on the rules provided calculates a total value for a given input
+* Currency - deals with exchange rates between known currencies
+* TextInput - parses free text and extracts known word elements to hand off to the parser
+
+### Overview
+
+1. They do not depend on each other, but are composed together to solve the requirements, expect TextInput.
+1. All modules are within their own namespace and directory, and the root file in each contains the public interface for how to use them.
+1. Custom exceptions are raised where input could not result in a match against current dataset.
+1. On application boot it creates a default set of exchange rates and conversion types based on information provided and worked out from the problem question.
+
+## Run
+
+* Uses `ruby 2.4.2`
+* Setup `bundle`
+* Main entrypoint `./bin/parse <text>`
+* Console access `pry -r ./init.rb`
+* Tests `rspec`
+
+### Overview
+
+* Currency
+
+```ruby
+# Add some exchange rates (a default set is already created on startup)
+> Currency.add_exchange_rate(name: :iron, value: 195.5)
+
+# Can now convert units of that earth type into credits
+> Currency.money(2, :iron)
+=> iron - 2 - 391.0
+```
+
+* Conversion
+
+```ruby
+# Add a Roman to Arabic conversion type (This are setup on startup)
+> Conversion.add_conversion_type(
+   symbol: "I", value: 1, name: "glob", repeatable: true, subtractable_by: ["V", "X"]
+ )
+
+# low level example conversion from some roman numerals
+> Conversion::Converters::Roman.new("MMMXI", Conversion::Numbers.all).convert
+=> [M - 1000, M - 1000, M - 1000, X - 10, I - 1]
+
+# medium level example of the parser accepting roman numerals
+> Conversion.parse("MMXCDIII")
+=> 2593
+
+# medium level example of the parser accepting alien words
+> Conversion.parse("pish tegj glob glob")
+=> 42
+
+> Conversion.parse("how much wood could a woodchuck chuck if a woodchuck could chuck wood")
+=> "I have no idea what you are talking about"
+
+# high level examples from test inputs
+> Currency.money(Conversion.parse("glob glob"), :silver).credits => 34
+> Currency.money(Conversion.parse("glob prok"), :silver).credits => 68
+> Currency.money(Conversion.parse("glob prok"), :gold).credits => 57800
+> Currency.money(Conversion.parse("pish pish"), :iron).credits => 3910.0
+> Currency.money(Conversion.parse("glob prok"), :iron).credits => 782.0
+```
+
+* High level input parsing
+
+```ruby
+> TextInput.answer("how much is pish tegj glob glob ?")
+=> "pish tegj glob glob is 42"
+
+> TextInput.answer("how many Credits is glob prok Silver ?")
+=> "glob prok silver is 68 Credits"
+```
+
+* Main program usage (from command line)
+
+```bash
+$ ./bin/parse how many Credits is glob prok Silver ?
+glob prok silver is 68 Credits
+
+./bin/parse how many Credits is glob prok Silver ?
+glob prok silver is 68 Credits
+```
