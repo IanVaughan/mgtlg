@@ -76,7 +76,7 @@ The code is split into modules that deal with a specific area of the problem dom
 
 * Uses `ruby 2.4.2`
 * Setup `bundle`
-* Main entrypoint `./bin/parse <text>`
+* Main entrypoint `./bin/parse -h` (see below for examples)
 * Console access `pry -r ./init.rb`
 * Tests `rspec`
 
@@ -137,9 +137,9 @@ The code is split into modules that deal with a specific area of the problem dom
 * Main program usage (from command line)
 
 ```bash
-$ ./bin/parse how many Credits is glob prok Silver ?
+$ ./bin/parse -t how many Credits is glob prok Silver ?
 glob prok silver is 68 Credits
 
-./bin/parse how many Credits is glob prok Silver ?
+./bin/parse -t how many Credits is glob prok Silver ?
 glob prok silver is 68 Credits
 ```

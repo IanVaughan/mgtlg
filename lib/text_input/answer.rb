@@ -29,7 +29,8 @@ module TextInput
     end
 
     def self.process_other(text)
-      Conversion.parse(text.gsub!("?", "").strip.downcase)
+      return if text.nil?
+      Conversion.parse(text.gsub!("?", "")&.strip&.downcase)
     end
 
     def self.extract_keywords(regexp, text)

@@ -7,6 +7,7 @@ module Conversion
 
     class Roman < Base
       def can_convert?
+        return if string.nil?
         symbols = current_symbols
         string.chars.all? { |w| symbols.include? w }
       end

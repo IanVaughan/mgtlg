@@ -7,8 +7,8 @@ module Conversion
 
     class Alien < Base
       def can_convert?
+        return if string.nil?
         words = current_words
-
         string.split.all? { |w| words.include? w }
       end
 
