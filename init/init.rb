@@ -1,0 +1,11 @@
+Currency.add_exchange_rate(name: :silver, value: 17)
+Currency.add_exchange_rate(name: :gold, value: 14_450)
+Currency.add_exchange_rate(name: :iron, value: 195.5)
+
+Conversion.add_conversion_type(symbol: "I", value: 1, name: "glob", repeatable: true, subtractable_by: ["V", "X"])
+Conversion.add_conversion_type(symbol: "V", value: 5, name: "prok", repeatable: false, subtractable_by: nil)
+Conversion.add_conversion_type(symbol: "X", value: 10, name: "pish", repeatable: true, subtractable_by: ["L", "C"])
+Conversion.add_conversion_type(symbol: "L", value: 50, name: "tegj", repeatable: false, subtractable_by: nil)
+Conversion.add_conversion_type(symbol: "C", value: 100, name: nil, repeatable: true, subtractable_by: ["D","M"])
+Conversion.add_conversion_type(symbol: "D", value: 500, name: nil, repeatable: false, subtractable_by: nil)
+Conversion.add_conversion_type(symbol: "M", value: 1_000, name: nil, repeatable: true, subtractable_by: nil)
