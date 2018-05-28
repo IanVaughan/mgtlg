@@ -1,4 +1,5 @@
 module Conversion
+  # Main class responsible for converting an input into a value of credits
   class Parse
     class << self
       class NoMatchingConverterError < RuntimeError; end
@@ -18,6 +19,8 @@ module Conversion
         raise NoMatchingConverterError if converter.nil?
 
         number_set = converter.convert
+        return number_set if number_set.class == String
+
         calculator.new(number_set).result
       end
 
