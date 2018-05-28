@@ -8,7 +8,7 @@ require 'optparse'
 def parse(text)
   TextInput.answer(text)
 rescue RuntimeError => e
-  "Error processing #{text} : #{e}"
+  "Error processing #{text.chomp} : #{e}"
 end
 
 options = {}

@@ -137,9 +137,18 @@ The code is split into modules that deal with a specific area of the problem dom
 * Main program usage (from command line)
 
 ```bash
-$ ./bin/parse -t how many Credits is glob prok Silver ?
+# Test with a single text string
+$ ./bin/parse -t "how much is pish tegj glob glob ?"
+pish tegj glob glob is 42
+
+$ ./bin/parse -t "how many Credits is glob prok Silver ?"
 glob prok silver is 68 Credits
 
-./bin/parse -t how many Credits is glob prok Silver ?
+# Process a file of strings
+$ ./bin/parse -f spec/test_input.txt
+pish tegj glob glob is 42
 glob prok silver is 68 Credits
+glob prok gold is 57800 Credits
+glob prok iron is 782.0 Credits
+I have no idea what you are talking about
 ```
