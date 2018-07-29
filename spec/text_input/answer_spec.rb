@@ -29,5 +29,13 @@ RSpec.describe TextInput::Answer do
         is_expected.to eq "#{extracted_text} silver is 220 Credits"
       end
     end
+
+    context "everything else" do
+      let(:text) { "how much wood could a woodchuck chuck if a woodchuck could chuck wood" }
+
+      it "converts" do
+        is_expected.to eq "I have no idea what you are talking about"
+      end
+    end
   end
 end

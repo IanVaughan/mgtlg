@@ -21,6 +21,11 @@ RSpec.describe Conversion::Calculator do
       it { is_expected.to eq 1944 }
     end
 
+    context "example XXXIX" do
+      let(:number_set) { [x,x,x,i,x] }
+      it { is_expected.to eq 1944 }
+    end
+
     context "example CM that subtracts" do
       let(:number_set) { [c, m] }
       it { is_expected.to eq 900 }
