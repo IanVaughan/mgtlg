@@ -9,7 +9,7 @@ The numbers used for intergalactic transactions follows similar convention to th
 Roman numerals are based on seven symbols:
 
 | Symbol        | Value         | other | repeatable? | subtractable? |
-| ------------- |:-------------:|--|-|
+| ------------- |:-------------:|--|-|-|
 | I | 1   | glob | true  | `V`, `X`|
 | V | 5   | prok | false | false |
 | X | 10  | pish | true  | `L`, `C` |
@@ -22,7 +22,7 @@ Table extended with logic extracted from rules within this readme.
 
 Numbers are formed by combining symbols together and adding the values. For example, MMVI is `1000 + 1000 + 5 + 1 = 2006`. Generally, symbols are placed in order of value, starting with the largest values. When smaller values precede larger values, the smaller values are subtracted from the larger values, and the result is added to the total. For example `MCMXLIV = 1000 + (1000 - 100) + (50 - 10) + (5 - 1) = 1944`.
 
-## Rules
+## Rules
 
 * The symbols "I", "X", "C", and "M" can be repeated three times in succession, but no more.
 * They may appear four times if the third and fourth are separated by a smaller value, such as XXXIX.
@@ -42,7 +42,7 @@ Input to your program consists of lines of text detailing your notes on the conv
 
 You are expected to handle invalid queries appropriately.
 
-## Tests
+## Tests
 
 Table extended with own calculations
 
@@ -56,23 +56,27 @@ Table extended with own calculations
 | pish tegj glob glob | 42            | (10-50)+1+1 = 42 |
 | how much wood could a <br>woodchuck chuck if a <br>woodchuck could chuck wood | I have no idea what you <br>are talking about |
 
+----
 
-## Design
+# Solution
+
+## Design
 
 The code is split into modules that deal with a specific area of the problem domain.
 
-* Conversion - deals with converting between types created in the system, and based on the rules provided calculates a total value for a given input
+* Conversion - deals with converting between types created in the system, and based on the rules provided calculates a total value for a given input.
+    * Uses Inversion of Control design to be extendable without change to other classes
 * Currency - deals with exchange rates between known currencies
 * TextInput - parses free text and extracts known word elements to hand off to the parser
 
-### Overview
+### Overview
 
-1. They do not depend on each other, but are composed together to solve the requirements, expect TextInput.
+1. They do not depend on each other, but are composed together to solve the requirements.
 1. All modules are within their own namespace and directory, and the root file in each contains the public interface for how to use them.
 1. Custom exceptions are raised where input could not result in a match against current dataset.
 1. On application boot it creates a default set of exchange rates and conversion types based on information provided and worked out from the problem question.
 
-## Run
+## Run
 
 * Uses `ruby 2.4.2`
 * Setup `bundle`
@@ -80,7 +84,7 @@ The code is split into modules that deal with a specific area of the problem dom
 * Console access `pry -r ./init.rb`
 * Tests `rspec`
 
-### Overview
+### Overview
 
 * Currency
 
