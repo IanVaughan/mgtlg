@@ -1,6 +1,6 @@
-#!/usr/local/bin/ruby -w
+#!/usr/bin/env ruby
 
-require "./init"
+require './init'
 require 'optparse'
 
 # ./bin/parse -t "how many Credits is glob prok Silver ?"
@@ -13,12 +13,12 @@ end
 
 options = {}
 OptionParser.new do |opts|
-  opts.banner = "Usage: parse [options]"
+  opts.banner = 'Usage: parse [options]'
 
-  opts.on("-tTEXT", "--text=TEXT", "Parse text from command line") do |text|
+  opts.on('-tTEXT', '--text=TEXT', 'Parse text from command line') do |text|
     options[:text] = text
   end
-  opts.on("-fNAME", "--file=NAME", "Parse text from file") do |filename|
+  opts.on('-fNAME', '--file=NAME', 'Parse text from file') do |filename|
     options[:file] = filename
   end
 end.parse!
